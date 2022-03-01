@@ -1,0 +1,66 @@
+<!-- in this video we create a basic project of checking whether two domain/url have same origins or not
+
+	Two URLs have the same origin if the protocol, port (if specified), and host are the same for both -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Origin checker</title>
+</head>
+<style type="text/css">
+	.container form
+	{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+	}
+	.container form input
+	{
+		margin: 15px 0px;
+		padding: 5px 15px;
+		border-radius: 10px;
+		border: 1px solid blue;
+	}
+
+</style>
+<body>
+<div class="container">
+	<form>
+		<label for="url1">Enter URL 1</label>
+		<input type="text" name="url1" placeholder="enter url 1" id="url1">
+		<label for="url2">Enter URL 2</label>
+		<input type="text" name="url2" placeholder="enter url 2" id="url2">
+		<input type="submit" name="checkorigin" value="checkorigin" style="cursor: pointer;" id="submit">
+	</form>
+</div>
+<script type="text/javascript">
+	document.getElementById('submit').addEventListener("click",checkOrigin)
+
+	function checkOrigin(e)
+	{
+		e.preventDefault()
+		let url1=new URL(document.getElementById("url1").value);
+		let url2=new URL(document.getElementById("url2").value);
+        let {host:host1,protocol:protocol1,port:port1} =url1
+        let {host:host2,protocol:protocol2,port:port2} =url2
+
+        console.log(port1,port2)
+        if(host1 == host2 && protocol1 == protocol2 && port1 == port2)
+        {
+        	console.log("same origin")
+        }
+        else
+        {
+        	console.log("different origin")
+        }
+
+
+
+
+	}
+</script>
+</body>
+</html>
