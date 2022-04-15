@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Server 2</title>
+</head>
+<body>
+	<!-- lets transfer the server2 localstorage data to server 1 using postMessage event-->
+<b>Hello from server 2</b>
+
+
+<script type="text/javascript">
+	// here we need to add a msg listener 
+
+	window.addEventListener("load",function(){
+		window.addEventListener("message",server2Receiver)
+	})
+
+	function server2Receiver(e)
+	{
+	    let server_name = localStorage.getItem("name")
+		console.log("inside server2Receiver",e)
+		if(e.origin == "http://localhost:8000")
+		{
+		console.log("inside if of server2 ",e.origin,e.data)
+
+		// lets send back a msg to server1
+
+		e.source.postMessage("localstorage data sent from "+server_name,e.origin)
+
+		}
+	}
+</script>
+
+</body>
+</html>

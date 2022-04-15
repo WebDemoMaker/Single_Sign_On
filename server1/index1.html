@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Server 1</title>
+
+</head>
+<body>
+Hello from server 1 
+<!-- first we need to include server2 html file as an iframe here -->
+
+<iframe src="http://localhost:9000/" width="300px" height="300px"></iframe>
+<script type="text/javascript">
+	// now send msg to server 2 using iframe contentwindow
+    window.addEventListener("load",function(){
+ let server_name = localStorage.getItem("name")
+	let frame  = document.getElementsByTagName('iframe')[0];
+	frame.contentWindow.postMessage("Msg from server 1 localStorage data is "+server_name,"*");
+	window.addEventListener("message",server1Receiver)
+    })
+
+
+// add receiver in server1
+
+
+// so finally we are able to share msg b/w teo cross origin servers now lets share localstorage data instead of messages
+	function server1Receiver(e)
+	{
+		// e.data contain "localstorage data sent from server2" so we are able to access server2 localstorage here
+
+		console.log("inside server1Receiver",e.data,e.origin)
+		// if(e.origin == "http://localhost:8000")
+		// {
+		console.log(e.origin,e.data)
+
+		// lets send back a msg to server1
+
+		// e.target.postMessage("msg from server 2","*")
+
+		// }
+	}
+
+</script>
+</body>
+</html>
